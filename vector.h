@@ -12,6 +12,12 @@ namespace m4mm {
     class Vector {
 
         public:
+
+            //
+            // Values
+            //
+
+
             // Cartesian coordinates with homogeneous coordinate
             //Value x, y, z, h;
             // Color values with opacity
@@ -21,6 +27,12 @@ namespace m4mm {
             //
             //use array instead
             //Value values[];
+
+
+
+            //
+            // Con/Destructors
+            //
 
             // Default constructor
             virtual Vector<Value>();
@@ -35,21 +47,52 @@ namespace m4mm {
             // Destructor
             virtual ~Vector();
 
+
+
+            //
+            // OPERATORS
+            //
+
+
             // Vector op Vector algebra
             virtual Vector<Value> operator+(const Vector<Value>& a, const Vector<Value>& b);
             virtual Vector<Value> operator-(const Vector<Value>& a, const Vector<Value>& b);
             virtual Vector<Value> operator/(const Vector<Value>& a, const Vector<Value>& b);
             virtual Vector<Value> operator*(const Vector<Value>& a, const Vector<Value>& b);
 
+
             // Matrix * Vector
             virtual Vector<Value> operator*(const Matrix<Value>& m, const Vector<Value>& v);
             // Vector * Matrix
             virtual Vector<Value> operator*(const Vector<Value>& v, const Matrix<Value>& m);
 
+
+
+            //
+            // GET
+            //
+
+
             // For getting a single value
-            //virtual Value getX|Y|Z|A|etc();
+            //virtual Value reachX|Y|Z|A|etc();
             // For getting more than one value... SWIZZLE!1111
-            virtual Vector<Value> get(const char *swiz_me);
+            virtual Vector<Value> reach(const char *swiz_me);
+
+
+
+            //
+            // Mutating functions
+            //
+
+
+            // Look at
+            virtual Vector<Value> stare(const Vector<Value> &eye, const Vector<Value> &center, const Vector<Value> &up);
+            // Orbit
+            virtual Vector<Value> twist(const Vector<Value> &position, const Vector<Value> &center, const Vector<Value> &axis);
+            // Pan
+            virtual Vector<Value> push(const Vector<Value> &vector, const Vector<Value> &direction);
+            // Rotate
+            virtual Vector<Value> spin(const Vector<Value> &position, const Vector<Value> &axis);
 
         private:
 
