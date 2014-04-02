@@ -1,52 +1,20 @@
 /*
  * m4mm math library
- * Vector virtual base class prototype
+ * Vector pure virtual base class prototype
  *
  */
 
 #ifndef M4MM_VECTOR_H
 #define M4MM_VECTOR_H
 
+#include <array>
+
+
 namespace m4mm {
     template<class Value>
     class Vector {
 
         public:
-
-            //
-            // Values
-            //
-
-
-            // Cartesian coordinates with homogeneous coordinate
-            //Value x, y, z, h;
-            // Color values with opacity
-            //Value r, g, b, a;
-            // Texture coordinates
-            //Value s, t, p, q;
-            //
-            //use array instead
-            //Value values[];
-
-
-
-            //
-            // Con/Destructors
-            //
-
-            // Default constructor
-            virtual Vector<Value>();
-
-            // implicit conversions
-            virtual Vector<Value>(const Value[]* v);
-            virtual Vector<Value> Value*(const Vector<Value>& v);
-
-            // Copy
-            virtual Vector(const Vector<Value>& original);
-
-            // Destructor
-            virtual ~Vector();
-
 
 
             //
@@ -55,16 +23,17 @@ namespace m4mm {
 
 
             // Vector op Vector algebra
-            virtual Vector<Value> operator+(const Vector<Value>& a, const Vector<Value>& b);
-            virtual Vector<Value> operator-(const Vector<Value>& a, const Vector<Value>& b);
-            virtual Vector<Value> operator/(const Vector<Value>& a, const Vector<Value>& b);
-            virtual Vector<Value> operator*(const Vector<Value>& a, const Vector<Value>& b);
+            virtual friend Vector<Value> operator +(const Vector<Value>& a, const Vector<Value>& b) = 0;
+            virtual friend Vector<Value> operator -(const Vector<Value>& a, const Vector<Value>& b) = 0;
+            virtual friend Vector<Value> operator /(const Vector<Value>& a, const Vector<Value>& b) = 0;
+            virtual friend Vector<Value> operator *(const Vector<Value>& a, const Vector<Value>& b) = 0;
 
+            virtual friend Vector<Value> operator +=(const Vector<Value>& a, const Vector<Value>& b) = 0;
+            virtual friend Vector<Value> operator -=(const Vector<Value>& a, const Vector<Value>& b) = 0;
+            virtual friend Vector<Value> operator /=(const Vector<Value>& a, const Vector<Value>& b) = 0;
+            virtual friend Vector<Value> operator *=(const Vector<Value>& a, const Vector<Value>& b) = 0;
 
-            // Matrix * Vector
-            virtual Vector<Value> operator*(const Matrix<Value>& m, const Vector<Value>& v);
-            // Vector * Matrix
-            virtual Vector<Value> operator*(const Vector<Value>& v, const Matrix<Value>& m);
+            virtual friend Vector<Value> operator [](const Vector<Value>& v, const int& i) = 0;
 
 
 
@@ -73,10 +42,7 @@ namespace m4mm {
             //
 
 
-            // For getting a single value
-            //virtual Value reachX|Y|Z|A|etc();
-            // For getting more than one value... SWIZZLE!1111
-            virtual Vector<Value> reach(const char *swiz_me);
+            virtual Vector<Value> reach(const char *swiz_me) = 0;
 
 
 
@@ -85,16 +51,7 @@ namespace m4mm {
             //
 
 
-            // Look at
-            virtual Vector<Value> stare(const Vector<Value> &eye, const Vector<Value> &center, const Vector<Value> &up);
-            // Orbit
-            virtual Vector<Value> twist(const Vector<Value> &position, const Vector<Value> &center, const Vector<Value> &axis);
-            // Pan
-            virtual Vector<Value> push(const Vector<Value> &vector, const Vector<Value> &direction);
-            // Rotate
-            virtual Vector<Value> spin(const Vector<Value> &position, const Vector<Value> &axis);
-
-        private:
+        //protected:
 
 
     }
